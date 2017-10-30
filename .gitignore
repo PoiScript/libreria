@@ -1,0 +1,12 @@
+# compiled output
+/.cache
+/public
+
+# dependencies
+/node_modules
+
+# IDE
+/.idea
+
+# misc
+yarn-error.log

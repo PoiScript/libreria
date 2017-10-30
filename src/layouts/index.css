@@ -1,0 +1,32 @@
+body {
+  background: #d1cdb7;
+  color: #454138;
+  letter-spacing: 0.04rem;
+}
+
+body {
+  background-image: linear-gradient(to right, #ccc8b1 2px, transparent 2px),
+  linear-gradient(to bottom, #ccc8b1 2px, transparent 2px);
+  height: 100%;
+  background-attachment: fixed;
+  background-size: 7px 7px;
+}
+
+#___gatsby {
+  max-width: 960px;
+  margin: auto;
+}
+
+.katex-display > .katex {
+  background-color: #dcd8c0;
+  box-shadow: 0.3rem 0.3rem 0 #bab5a1;
+  padding: 20px;
+}
+
+h1 {
+  border: solid #454138;
+  border-width: 0.1rem 0;
+  padding: 0.1rem 1rem;
+  font-size: 1.5rem;
+  font-weight: 300;
+}

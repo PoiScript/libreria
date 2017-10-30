@@ -1,0 +1,21 @@
+{
+  "name": "libreria",
+  "version": "0.1.0",
+  "description": "My personal wiki",
+  "license": "MIT",
+  "repository": "git@github.com:PoiScript/libreria.git",
+  "author": "PoiScript <poiscript@gmail.com>",
+  "scripts": {
+    "build": "gatsby build",
+    "start": "gatsby develop"
+  },
+  "private": true,
+  "dependencies": {
+    "gatsby": "^1.9.73",
+    "gatsby-link": "^1.6.22",
+    "gatsby-plugin-react-helmet": "^1.0.8",
+    "gatsby-source-filesystem": "^1.5.5",
+    "gatsby-transformer-remark": "^1.7.18",
+    "katex": "^0.9.0-alpha1"
+  }
+}
