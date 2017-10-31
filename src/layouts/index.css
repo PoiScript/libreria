@@ -1,4 +1,5 @@
 body {
+  margin: 0;
   background: #d1cdb7;
   color: #454138;
   letter-spacing: 0.04rem;
@@ -10,11 +11,6 @@ body {
   height: 100%;
   background-attachment: fixed;
   background-size: 7px 7px;
-}
-
-#___gatsby {
-  max-width: 960px;
-  margin: auto;
 }
 
 .katex-display > .katex {
@@ -29,4 +25,72 @@ h1 {
   padding: 0.1rem 1rem;
   font-size: 1.5rem;
   font-weight: 300;
+  margin-bottom: 20px;
+  margin-top: 50px;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.topLeft {
+  top: 0;
+  left: 0;
+  z-index: -1;
+  position: fixed;
+}
+
+@media (max-width: 1024px) {
+  .bottomRight {
+    display: none;
+  }
+}
+
+.bottomRight {
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  position: fixed;
+}
+
+.circles {
+  width: 300px;
+  height: 300px;
+}
+
+.topLeftCircles {
+  background-image: radial-gradient(at top left,
+  transparent 66.5%, #b4af9b 67%, transparent 67.5%,
+  transparent 69%, #b4af9b 69.5%, transparent 70%);
+}
+
+.bottomRightCircles {
+  background-image: radial-gradient(at right bottom,
+  transparent 66.5%, #b4af9b 67%, transparent 67.5%,
+  transparent 69%, #b4af9b 69.5%, transparent 70%);
+}
+
+.line1 {
+  width: 500px;
+  height: 500px;
+  background-image: linear-gradient(45deg,
+  transparent 49.8%, #b4af9b 50%, transparent 50.2%);
+}
+
+.line2 {
+  height: 400px;
+  width: 600px;
+}
+
+.topLeftLine2 {
+  background-image: linear-gradient(45deg,
+  transparent 33.6%, #b4af9b 33.8%, transparent 34%,
+  transparent 46%, #b4af9b 46.2%, transparent 46.4%);
+}
+
+.bottomRightLine2 {
+  background-image: linear-gradient(45deg,
+  transparent 53.6%, #b4af9b 53.8%, transparent 54%,
+  transparent 66%, #b4af9b 66.2%, transparent 66.4%);
 }

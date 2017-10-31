@@ -1,7 +1,14 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 
+import { BottomBorder, TopBorder } from '../components/Border'
+
 const styles = {
+  content: {
+    margin: 'auto',
+    maxWidth: '960px',
+    padding: '10px'
+  },
   header: {
     fontSize: '2.5rem',
     fontWeight: 'normal',
@@ -16,17 +23,23 @@ export default ({ data }) => {
   return (
     <div>
       <Helmet title={entry.frontmatter.title} />
-      <div style={styles.header}>{entry.frontmatter.title}</div>
-      <div dangerouslySetInnerHTML={{ __html: entry.html }} />
+      <TopBorder />
+      <div style={styles.content}>
+        <div style={styles.header}>■{entry.frontmatter.title}</div>
+        <div dangerouslySetInnerHTML={{ __html: entry.html }} />
+      </div>
+      <BottomBorder />
     </div>
   )
 }
 
-export const pageQuery = graphql`
-  query BlogPostByPath($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+export const entryQuery = graphql`
+  query EntryQuery($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
-      frontmatter { path title }
+      frontmatter {
+        title
+      }
     }
   }
 `
