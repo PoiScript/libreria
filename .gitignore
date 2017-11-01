@@ -1,6 +1,7 @@
 # compiled output
 /.cache
 /public
+ltximg/
 
 # dependencies
 /node_modules
