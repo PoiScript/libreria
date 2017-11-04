@@ -1,3 +1,5 @@
+const { join } = require('path')
+
 module.exports = {
   siteMetadata: {
     title: 'Libreria',
@@ -5,10 +7,18 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     {
+      resolve: 'gatsby-source-git',
+      options: {
+        repo: __dirname,
+        content: join(__dirname, 'content'),
+        extension: ['.md']
+      }
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
-        path: __dirname + '/content',
-        name: 'pages',
+        path: join(__dirname, 'content'),
+        name: 'pages'
       }
     },
     {
