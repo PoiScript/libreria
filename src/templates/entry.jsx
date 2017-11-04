@@ -1,16 +1,20 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import Link from 'gatsby-link'
 
 import { BottomBorder, TopBorder } from '../components/Border'
+
+import './entry.css'
 
 const styles = {
   content: {
     margin: 'auto',
-    maxWidth: '960px',
-    padding: '10px'
+    padding: '0 10px',
+    maxWidth: '960px'
   },
   header: {
     fontSize: '2.5rem',
+    paddingTop: '10px',
     fontWeight: 'normal',
     textShadow: '0.3rem 0.3rem 0 #bab5a1',
     textTransform: 'uppercase',
@@ -18,26 +22,29 @@ const styles = {
   }
 }
 
-export default ({ data }) => {
-  const { markdownRemark: entry } = data
-  return (
-    <div>
-      <Helmet title={entry.frontmatter.title} />
-      <TopBorder />
-      <div style={styles.content}>
-        <div style={styles.header}>■{entry.frontmatter.title}</div>
-        <div dangerouslySetInnerHTML={{ __html: entry.html }} />
+export default ({ data: { entry } }) => (
+  <div>
+    <Helmet title={entry.meta.title} />
+    <TopBorder />
+    <div style={styles.content}>
+      <div className='paginator'>
+        <Link to='/'>Libreria</Link> > <Link to={entry.meta.category}>{entry.meta.category}</Link> > {entry.meta.title}
       </div>
-      <BottomBorder />
     </div>
-  )
-}
+    <div style={styles.content}>
+      <div style={styles.header}>■{entry.meta.title}</div>
+      <div dangerouslySetInnerHTML={{ __html: entry.html }} />
+    </div>
+    <BottomBorder />
+  </div>
+)
 
 export const entryQuery = graphql`
   query EntryQuery($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    entry: markdownRemark(fields: { slug: { eq: $slug } }) {
       html
-      frontmatter {
+      meta: frontmatter {
+        category
         title
       }
     }

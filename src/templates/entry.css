@@ -1,0 +1,17 @@
+.paginator:before {
+  content: '';
+  position: absolute;
+  width: 0.3rem;
+  top: 0;
+  height: 100%;
+  left: 0;
+  border: solid #454138;
+  border-width: 0 0.2rem 0 0.7rem;
+}
+
+.paginator {
+  position: relative;
+  background-color: #dcd8c0;
+  box-shadow: 0.2rem 0.2rem 0 #bab5a1;
+  padding: 0.6rem 1.8rem;
+}
