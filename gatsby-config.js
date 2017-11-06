@@ -9,8 +9,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-git',
       options: {
-        repo: __dirname,
-        content: join(__dirname, 'content'),
+        path: join(__dirname, 'content'),
         extension: ['.md']
       }
     },

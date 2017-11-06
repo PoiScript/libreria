@@ -1,31 +1,21 @@
 const crypto = require('crypto')
 const { readdirSync, statSync } = require('fs')
-const { join, extname, parse } = require('path')
+const { join, extname } = require('path')
 const simpleGit = require('simple-git')
 
 exports.sourceNodes = async ({ boundActionCreators }, pluginOptions) => {
-  const { createNode, createNodeField } = boundActionCreators
+  const { createNode } = boundActionCreators
+  const { path, extension } = pluginOptions
 
-  if (!pluginOptions) {
+  if (!path || !extension) {
     return
-  } else if (!Array.isArray(pluginOptions)) {
-    pluginOptions = [pluginOptions]
   }
 
-  for (const opt of pluginOptions) {
-    if (opt.repo && opt.content && opt.extension) {
-      const fileList = []
-      walkSync(opt.content, fileList, opt.extension)
-      for (const file of fileList) {
-        const node = await getGitInfoNode(opt.repo, file)
-        createNode(node)
-        createNodeField({
-          node,
-          name: 'slug',
-          value: parse(file).name
-        })
-      }
-    }
+  const fileList = []
+  walkSync(path, fileList, extension)
+
+  for (const file of fileList) {
+    createNode(await getGitInfoNode(path, file))
   }
 }
 
@@ -54,17 +44,19 @@ async function getGitInfoNode (repoPath, file) {
   opt[file] = null
 
   const repo = simpleGit(repoPath)
-  const last = await getCommit(repo, { n: 1, ...opt })
-  const first = await getCommit(repo, { '--reverse': null, ...opt })
-
-  const content = { last, first, file }
+  const lastCommit = await getCommit(repo, { n: 1, ...opt })
+  const firstCommit = await getCommit(repo, { '--reverse': null, ...opt })
+  const count = await getCommitCount(repo, file)
   const contentDigest = crypto.createHash('md5').update(file).digest('hex')
 
   return {
     id: contentDigest,
     children: [],
     parent: '__SOURCE__',
-    content,
+    fileAbsolutePath: file,
+    lastCommit,
+    firstCommit,
+    commitCount: count,
     internal: {
       contentDigest,
       type: 'GitInfo'
@@ -79,6 +71,18 @@ async function getCommit (repo, opts) {
         reject(err)
       } else {
         resolve(commits.latest)
+      }
+    })
+  })
+}
+
+async function getCommitCount (repo, file) {
+  return await new Promise((resolve, reject) => {
+    repo.raw(['rev-list', '--count', '--all', '--', file], (err, count) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(count.trim())
       }
     })
   })
