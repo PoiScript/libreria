@@ -19,6 +19,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
     allMarkdownRemark(limit: 1000) {
       edges {
         node {
+          fileAbsolutePath
           fields {
             slug
           }
@@ -36,7 +37,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
           path: node.fields.slug,
           component: resolve('src/templates/entry.jsx'),
           context: {
-            slug: node.fields.slug,
+            fileAbsolutePath: node.fileAbsolutePath
           }
         })
       })

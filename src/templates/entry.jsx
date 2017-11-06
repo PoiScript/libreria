@@ -3,6 +3,7 @@ import Helmet from 'react-helmet'
 import Link from 'gatsby-link'
 
 import { BottomBorder, TopBorder } from '../components/Border'
+import CommitStatus from '../components/CommitStatus'
 
 import './entry.css'
 
@@ -22,7 +23,7 @@ const styles = {
   }
 }
 
-export default ({ data: { entry } }) => (
+export default ({ data: { entry, git } }) => (
   <div>
     <Helmet title={entry.meta.title} />
     <TopBorder />
@@ -34,18 +35,37 @@ export default ({ data: { entry } }) => (
     <div style={styles.content}>
       <div style={styles.header}>■{entry.meta.title}</div>
       <div dangerouslySetInnerHTML={{ __html: entry.html }} />
+      <CommitStatus
+        title={entry.meta.title}
+        count={git.commitCount}
+        lastCommit={git.lastCommit}
+        firstCommit={git.firstCommit}
+      />
     </div>
     <BottomBorder />
   </div>
 )
 
 export const entryQuery = graphql`
-  query EntryQuery($slug: String!) {
-    entry: markdownRemark(fields: { slug: { eq: $slug } }) {
+  query EntryQuery($fileAbsolutePath: String!) {
+    entry: markdownRemark(fileAbsolutePath: { eq: $fileAbsolutePath }) {
       html
       meta: frontmatter {
         category
         title
+      }
+    }
+      git: gitInfo(fileAbsolutePath: { eq: $fileAbsolutePath }) {
+      commitCount
+      lastCommit {
+        hash
+        message
+        date
+      }
+      firstCommit {
+        hash
+        message
+        date
       }
     }
   }
