@@ -1,13 +1,26 @@
-const { resolve } = require('path')
-const { createFilePath } = require('gatsby-source-filesystem')
+const { resolve, parse, join } = require('path')
 
-exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
+const createSlug = (text) => {
+  return text.toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '')
+}
+
+exports.onCreateNode = ({ node, boundActionCreators }) => {
   const { createNodeField } = boundActionCreators
   if (node.internal.type === 'MarkdownRemark') {
     createNodeField({
       node,
       name: 'slug',
-      value: createFilePath({ node, getNode })
+      value: parse(node.fileAbsolutePath).name
+    })
+
+    createNodeField({
+      node,
+      name: 'categorySlug',
+      value: createSlug(node.frontmatter.category)
     })
   }
 }
@@ -16,30 +29,54 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators
 
   return graphql(`{
-    allMarkdownRemark(limit: 1000) {
+    entries: allMarkdownRemark {
       edges {
         node {
           fileAbsolutePath
+          meta: frontmatter {
+            category
+            title
+          }
           fields {
             slug
+            categorySlug
           }
         }
       }
     }
   }`)
-    .then(result => {
-      if (result.errors) {
-        return Promise.reject(result.errors)
+    .then(({ data: { entries }, errors }) => {
+      if (errors) {
+        return Promise.reject(errors)
       }
 
-      result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-        createPage({
-          path: node.fields.slug,
-          component: resolve('src/templates/entry.jsx'),
-          context: {
-            fileAbsolutePath: node.fileAbsolutePath
-          }
+      entries.edges
+        .forEach(({ node }) => {
+          createPage({
+            path: join(node.fields.categorySlug, node.fields.slug),
+            component: resolve('src/templates/entry.jsx'),
+            context: {
+              fileAbsolutePath: node.fileAbsolutePath
+            }
+          })
         })
-      })
+
+      entries.edges
+        .map(({ node }) => node.fields.categorySlug)
+        .filter((slug, index, self) => self.indexOf(slug) === index)
+        .forEach(slug => {
+          const filteredEntries = entries.edges
+            .map(({ node }) => node)
+            .filter(node => node.fields.categorySlug === slug)
+          const category = filteredEntries[0].meta.category
+          createPage({
+            path: slug,
+            component: resolve('src/templates/category.jsx'),
+            context: {
+              category,
+              entries: filteredEntries
+            }
+          })
+        })
     })
 }

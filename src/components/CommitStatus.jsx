@@ -21,7 +21,7 @@ const styles = {
   }
 }
 
-export default ({ lastCommit, firstCommit, count, title }) => (
+const CommitStatus = ({ lastCommit, firstCommit, count, title }) => (
   <div style={styles.status}>
     <div style={styles.statusHeader}>Status</div>
     <div className='status-content'>
@@ -52,3 +52,5 @@ export default ({ lastCommit, firstCommit, count, title }) => (
     </div>
   </div>
 )
+
+export default CommitStatus

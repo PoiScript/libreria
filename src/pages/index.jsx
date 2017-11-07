@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { BottomBorder, TopBorder } from '../components/Border'
-
 const styles = {
   body: {
     display: 'flex',
@@ -30,12 +28,10 @@ const styles = {
 
 export default ({ data }) => (
   <div style={styles.body}>
-    <TopBorder />
     <div style={styles.content}>
       <div style={styles.header}>Libreria</div>
       <p style={styles.subheader}>PoiScript's wiki and it's {data.allMarkdownRemark.totalCount} entries so far …</p>
     </div>
-    <BottomBorder />
   </div>
 )
 
