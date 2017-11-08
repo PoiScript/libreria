@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { BottomBorder, TopBorder } from '../components/Border'
+import { BottomBorder, TopBorder } from '../components/border'
 
 import 'katex/dist/katex.min.css'
 import './index.css'
+import './global.css'
 
 const App = ({ children }) => (
   <div>

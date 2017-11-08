@@ -1,4 +1,4 @@
-.paginator:before {
+.entry-paginator:before {
   content: '';
   position: absolute;
   width: 0.3rem;
@@ -9,7 +9,7 @@
   border-width: 0 0.2rem 0 0.7rem;
 }
 
-.paginator:after {
+.entry-paginator:after {
   content: '';
   position: absolute;
   right: 0.5rem;
@@ -19,7 +19,7 @@
   border-width: 0 0.8rem 0 0;
 }
 
-.paginator {
+.entry-paginator {
   position: relative;
   background-color: #dcd8c0;
   box-shadow: 0.2rem 0.2rem 0 #bab5a1;

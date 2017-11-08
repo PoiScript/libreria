@@ -28,10 +28,13 @@ exports.onCreateNode = ({ node, boundActionCreators }) => {
 exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators
 
-  return graphql(`{
+  return graphql(`
+  {
     entries: allMarkdownRemark {
+      totalCount
       edges {
         node {
+          html
           fileAbsolutePath
           meta: frontmatter {
             category
@@ -44,23 +47,56 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
         }
       }
     }
-  }`)
-    .then(({ data: { entries }, errors }) => {
+    allGitInfo {
+      edges {
+        node {
+          commitCount
+          fileAbsolutePath
+          lastCommit {
+            hash
+            date
+            message
+          }
+          firstCommit {
+            hash
+            date
+            message
+          }
+        }
+      }
+    }
+  }
+  `)
+    .then(({ data: { entries, allGitInfo }, errors }) => {
       if (errors) {
         return Promise.reject(errors)
       }
 
+      // home page
+      createPage({
+        path: '/',
+        component: resolve('src/templates/home-screen.jsx'),
+        context: {
+          count: entries.totalCount
+        }
+      })
+
+      // entry page
       entries.edges
         .forEach(({ node }) => {
+          const gitInfo = allGitInfo.edges.map(({ node }) => node)
+            .find(info => info.fileAbsolutePath === node.fileAbsolutePath)
           createPage({
             path: join(node.fields.categorySlug, node.fields.slug),
             component: resolve('src/templates/entry.jsx'),
             context: {
-              fileAbsolutePath: node.fileAbsolutePath
+              entry: node,
+              gitInfo
             }
           })
         })
 
+      // category page
       entries.edges
         .map(({ node }) => node.fields.categorySlug)
         .filter((slug, index, self) => self.indexOf(slug) === index)

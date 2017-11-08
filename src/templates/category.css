@@ -10,6 +10,7 @@
 }
 
 .category-container {
+  box-shadow: 0.3rem 0.3rem 0 #bab5a1;
   position: relative;
   background-color: #dcd8c0;
   padding: 1px 0;
