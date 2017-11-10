@@ -28,9 +28,19 @@
 }
 
 .home-screen-link {
-  display: block;
-  padding: 20px;
+  display: inline-block;
+  width: 80px;
+  padding: 2px;
   text-decoration: none;
+}
+
+.home-screen-link:hover {
+  text-shadow: 0.2rem 0.2rem 0 #bab5a1;
+}
+
+.home-screen-link:hover {
+  border: solid #424242;
+  border-width: 0 0 2px 0;
 }
 
 .home-screen-copyright {

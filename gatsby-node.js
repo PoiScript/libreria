@@ -96,23 +96,39 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
           })
         })
 
+      // group entries by the category
+      const categories = Object.values(entries.edges.reduce((result, { node: { meta, fields } }) => {
+        if (!result[fields.categorySlug]) {
+          result[fields.categorySlug] = {
+            name: meta.category,
+            slug: fields.categorySlug,
+            entries: []
+          }
+        }
+        result[fields.categorySlug].entries.push({ meta, fields })
+        delete result.node
+        return result
+      }))
+
       // category page
-      entries.edges
-        .map(({ node }) => node.fields.categorySlug)
-        .filter((slug, index, self) => self.indexOf(slug) === index)
-        .forEach(slug => {
-          const filteredEntries = entries.edges
-            .map(({ node }) => node)
-            .filter(node => node.fields.categorySlug === slug)
-          const category = filteredEntries[0].meta.category
-          createPage({
-            path: slug,
-            component: resolve('src/templates/category.jsx'),
-            context: {
-              category,
-              entries: filteredEntries
-            }
-          })
+      categories.forEach(category => {
+        createPage({
+          path: category.slug,
+          component: resolve('src/templates/category.jsx'),
+          context: {
+            category: category.name,
+            entries: category.entries
+          }
         })
+      })
+
+      // data page
+      createPage({
+        path: 'data',
+        component: resolve('src/templates/data.jsx'),
+        context: {
+          categories
+        }
+      })
     })
 }

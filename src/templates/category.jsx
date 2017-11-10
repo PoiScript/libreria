@@ -8,15 +8,13 @@ import './category.css'
 const Category = ({ pathContext: { category, entries } }) => (
   <div className='content'>
     <Helmet title={category} />
-    <header>
-      <span className='primary-header text-shadow--0-3rem'>■{category}</span>
-      <span className='primary-subheader'>- {entries.length} ITEMS</span>
-    </header>
-    <div className='category-container'>
+    <header className='primary-header text-shadow--0-3rem'>■{category}</header>
+    <header className='primary-subheader'>- {entries.length} ITEMS -</header>
+    <div className='entry-container'>
       {entries.map((entry, i) => (
         <Link
           key={i}
-          className='category-row'
+          className='entry-row'
           to={`${entry.fields.categorySlug}/${entry.fields.slug}`}
         >
           {entry.meta.title}

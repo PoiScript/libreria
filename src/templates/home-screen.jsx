@@ -14,7 +14,7 @@ const HomeScreen = ({ pathContext: { count } }) => (
         PoiScript's wiki and it's {count} entries so far …
       </div>
       <div className='home-screen-link-container'>
-        <Link className='home-screen-link' to='/category'>Category</Link>
+        <Link className='home-screen-link' to='/data'>DATA</Link>
       </div>
     </div>
     <div className='home-screen-copyright text-shadow--0-2rem'>
