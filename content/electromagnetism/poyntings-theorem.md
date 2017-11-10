@@ -1,6 +1,6 @@
 ---
 title: Poynting's Theorem
-category: Electromgnetism
+category: Electromagnetism
 ---
 
 $$-\nabla\cdot(\vec{E}\times\vec{H})=\vec{J}\cdot\vec{E}+\frac{\partial}{\partial{t}}(\frac{1}{2}\vec{D}\cdot\vec{E})+\frac{\partial}{\partial{t}}(\frac{1}{2}\vec{B}\cdot\vec{H})$$

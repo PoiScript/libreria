@@ -1,6 +1,6 @@
 ---
 title: Linear Programming Problem
-category: Optimizaion
+category: Optimization
 ---
 
 $$\begin{gathered}
@@ -11,4 +11,3 @@ $$\begin{gathered}
 \end{gathered}$$
 
 This type of problem is known as a linear programming problem, since the objective function and the constrains are all linear functions.
-
