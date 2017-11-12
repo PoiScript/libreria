@@ -4,28 +4,17 @@ import PropTypes from 'prop-types'
 import 'katex/dist/katex.min.css'
 
 import { BottomBorder, TopBorder } from './border'
-import {
-  BottomRightDoubleCirclesCarve,
-  BottomRightDoubleLinesCarve,
-  BottomRightLineCarve,
-  TopLeftDoubleCirclesCarve,
-  TopLeftDoubleLinesCarve,
-  TopLeftLineCarve
-} from './carve'
+import { LeftTop, RightBottom } from './carve'
 
 import './index.css'
 
 const App = ({ children }) => (
   <div>
-    <TopLeftLineCarve />
-    <TopLeftDoubleLinesCarve />
-    <TopLeftDoubleCirclesCarve />
+    <LeftTop />
     <TopBorder />
-    <div>{children()}</div>
+    {children()}
     <BottomBorder />
-    <BottomRightLineCarve />
-    <BottomRightDoubleLinesCarve />
-    <BottomRightDoubleCirclesCarve />
+    <RightBottom />
   </div>
 )
 

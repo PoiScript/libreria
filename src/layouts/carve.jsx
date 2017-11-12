@@ -1,65 +1,34 @@
 import styled from 'styled-components'
 
-const TopLeftCorner = styled.div`
-  top: 0;
-  left: 0;
-  z-index: -1;
+const Carve = styled.div`
+  width: 500px;
+  height: 500px;
   position: fixed;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size:  400px 400px, 600px 400px, 600px 600px;
+  background-image:
+    radial-gradient(at top left,
+      transparent 345px, #b4af9b 346px, #b4af9b 349px, transparent 350px,
+      transparent 360px, #b4af9b 361px, #b4af9b 364px, transparent 365px),
+    linear-gradient(45deg,
+      transparent 250px, #b4af9b 251px, #b4af9b 254px, transparent 255px,
+      transparent 315px, #b4af9b 316px, #b4af9b 319px, transparent 320px),
+    linear-gradient(45deg,
+      transparent 424px, #b4af9b 425px, #b4af9b 428px, transparent 429px);
 `
 
-const BottomRightCorner = styled.div`
+export const LeftTop = Carve.extend`
+  top: 0;
+  left: 0;
+`
+
+export const RightBottom = Carve.extend`
   right: 0;
   bottom: 0;
-  z-index: -1;
-  position: fixed;
+  transform: rotate(180deg);
   
   @media (max-width: 1024px) {
     display: none;
   }
-`
-
-export const TopLeftLineCarve = TopLeftCorner.extend`
-  width: 500px;
-  height: 500px;
-  background-image: linear-gradient(45deg,
-  transparent 49.8%, #b4af9b 50%, transparent 50.2%);
-`
-
-export const TopLeftDoubleLinesCarve = TopLeftCorner.extend`
-  width: 600px;
-  height: 400px;
-  background-image: linear-gradient(45deg,
-  transparent 33.6%, #b4af9b 33.8%, transparent 34%,
-  transparent 46%, #b4af9b 46.2%, transparent 46.4%);
-`
-
-export const TopLeftDoubleCirclesCarve = TopLeftCorner.extend`
-  width: 300px;
-  height: 300px;
-  background-image: radial-gradient(at top left,
-  transparent 66.5%, #b4af9b 67%, transparent 67.5%,
-  transparent 69%, #b4af9b 69.5%, transparent 69.9%);
-`
-
-export const BottomRightLineCarve = BottomRightCorner.extend`
-  width: 500px;
-  height: 500px;
-  background-image: linear-gradient(45deg,
-  transparent 49.8%, #b4af9b 50%, transparent 50.2%);
-`
-
-export const BottomRightDoubleLinesCarve = BottomRightCorner.extend`
-  width: 600px;
-  height: 400px;
-  background-image: linear-gradient(45deg,
-  transparent 53.6%, #b4af9b 53.8%, transparent 54%,
-  transparent 66%, #b4af9b 66.2%, transparent 66.4%);
-`
-
-export const BottomRightDoubleCirclesCarve = BottomRightCorner.extend`
-  width: 300px;
-  height: 300px;
-  background-image: radial-gradient(at right bottom,
-  transparent 66.5%, #b4af9b 67%, transparent 67.5%,
-  transparent 69%, #b4af9b 69.5%, transparent 69.9%);
 `
