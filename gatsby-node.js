@@ -1,5 +1,7 @@
 const { resolve, parse, join } = require('path')
 
+const templates = resolve('src/templates')
+
 const createSlug = (text) => {
   return text.toLowerCase()
     .replace(/\s+/g, '-')
@@ -75,7 +77,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       // home page
       createPage({
         path: '/',
-        component: resolve('src/templates/home-screen.jsx'),
+        component: join(templates, 'home-screen/index.jsx'),
         context: {
           count: entries.totalCount
         }
@@ -88,7 +90,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
             .find(info => info.fileAbsolutePath === node.fileAbsolutePath)
           createPage({
             path: join(node.fields.categorySlug, node.fields.slug),
-            component: resolve('src/templates/entry.jsx'),
+            component: join(templates, 'entry/index.jsx'),
             context: {
               entry: node,
               gitInfo
@@ -114,7 +116,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       categories.forEach(category => {
         createPage({
           path: category.slug,
-          component: resolve('src/templates/category.jsx'),
+          component: join(templates, 'category/index.jsx'),
           context: {
             category: category.name,
             entries: category.entries
@@ -125,9 +127,9 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       // data page
       createPage({
         path: 'data',
-        component: resolve('src/templates/data.jsx'),
+        component: join(templates, 'data/index.jsx'),
         context: {
-          categories
+          categories: categories.map(cat => Object.assign(cat, { entries: cat.entries.length }))
         }
       })
     })
