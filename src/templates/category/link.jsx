@@ -6,7 +6,7 @@ export default styled(Link)`
   display: block;
   margin: 10px 0;
   position: relative;
-  background-color: #dcd8c0;
+  background-color: ${props => props.theme.overflowColor};
   padding: 0.6rem 0.5rem;
   cursor: pointer;
   letter-spacing: 0.15rem;
@@ -15,16 +15,16 @@ export default styled(Link)`
     content: '';
     position: absolute;
     top: 0;
-    height: 100%;
     left: 0;
-    border-left: 0.3rem solid #bd9d86;
+    height: 100%;
+    border-left: 0.3rem solid ${props => props.theme.primaryBorderColor};
   }
 
   &:hover {
-    color: #d7d1b9;
+    color: ${props => props.theme.overflowColor};
     transition: background-color .1s, color .1s;
     background: linear-gradient(to bottom,
-    #4d4940 5%, transparent 5%, transparent 10%, #4d4940 10%,
-    #4d4940 90%, transparent 90%, transparent 95%, #4d4940 95%);
+    ${props => props.theme.textColor} 5%, transparent 5%, transparent 10%, ${props => props.theme.textColor} 10%,
+    ${props => props.theme.textColor} 90%, transparent 90%, transparent 95%, ${props => props.theme.textColor} 95%);
   }
 `

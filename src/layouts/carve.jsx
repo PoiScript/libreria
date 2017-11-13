@@ -9,13 +9,18 @@ const Carve = styled.div`
   background-size:  400px 400px, 600px 400px, 600px 600px;
   background-image:
     radial-gradient(at top left,
-      transparent 345px, #b4af9b 346px, #b4af9b 349px, transparent 350px,
-      transparent 360px, #b4af9b 361px, #b4af9b 364px, transparent 365px),
+      transparent 345px, ${props => props.theme.carveColor} 346px,
+      ${props => props.theme.carveColor} 349px, transparent 350px,
+      transparent 360px, ${props => props.theme.carveColor} 361px,
+      ${props => props.theme.carveColor} 364px, transparent 365px),
     linear-gradient(45deg,
-      transparent 250px, #b4af9b 251px, #b4af9b 254px, transparent 255px,
-      transparent 315px, #b4af9b 316px, #b4af9b 319px, transparent 320px),
+      transparent 250px, ${props => props.theme.carveColor} 251px,
+      ${props => props.theme.carveColor} 254px, transparent 255px,
+      transparent 315px, ${props => props.theme.carveColor} 316px,
+      ${props => props.theme.carveColor} 319px, transparent 320px),
     linear-gradient(45deg,
-      transparent 424px, #b4af9b 425px, #b4af9b 428px, transparent 429px);
+      transparent 424px, ${props => props.theme.carveColor} 425px,
+      ${props => props.theme.carveColor} 428px, transparent 429px);
 `
 
 export const LeftTop = Carve.extend`

@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export default styled.div`
   position: relative;
-  background-color: #dcd8c0;
-  box-shadow: 0.2rem 0.2rem 0 #bab5a1;
+  background-color: ${props => props.theme.overflowColor};
+  box-shadow: 0.2rem 0.2rem 0 ${props => props.theme.shadowColor};
   padding: 0.6rem 1.8rem;
   
   &:before {
@@ -13,7 +13,7 @@ export default styled.div`
     top: 0;
     height: 100%;
     left: 0;
-    border: solid #454138;
+    border: solid ${props => props.theme.textColor};
     border-width: 0 0.2rem 0 0.7rem;
   }
 
@@ -23,7 +23,7 @@ export default styled.div`
     right: 0.5rem;
     height: 0.8rem;
     bottom: 0.3rem;
-    border: solid #454138;
+    border: solid ${props => props.theme.textColor};
     border-width: 0 0.8rem 0 0;
   }
 `

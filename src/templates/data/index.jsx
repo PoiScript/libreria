@@ -15,7 +15,7 @@ const Data = ({ pathContext: { categories } }) => (
     <Container>
       {categories.map((cat, i) => (
         <Link key={i} to={`${cat.slug}`}>
-          {cat.name}<span />[{cat.entries}]
+          {cat.name}<span className='spacer' />[{cat.entries}]
         </Link>
       ))}
     </Container>

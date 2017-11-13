@@ -4,26 +4,27 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   margin: 0;
   padding: 0;
-  background-color: #dcd8c0;
+  background-color: ${props => props.theme.overflowColor};
+  box-shadow: 0.3rem 0.3rem 0 ${props => props.theme.shadowColor};
 `
 
 const Title = styled.div`
   padding: 0.5rem 1rem;
   font-size: 1.2rem;
-  background-color: #454138;
-  color: #dcd8c0
+  color: ${props => props.theme.overflowColor};
+  background-color: ${props => props.theme.textColor};
 `
 
 const Content = styled.div`
   padding: 1rem;
   
   > hr:first-of-type {
-    border-top: solid #bab5a1;
+    border-top: solid ${props => props.theme.shadowColor};
     border-width: 0.125rem 0 0 0;
   }
   
   > hr:not(:first-of-type) {
-    border-top: solid #bab5a1;
+    border-top: solid ${props => props.theme.shadowColor};
     border-width: 0.1rem 0 0 0;
   }
 `

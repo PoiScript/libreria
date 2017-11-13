@@ -8,21 +8,20 @@ export default styled(Link)`
   text-decoration: none;
   margin: 10px 0;
   position: relative;
-  background-color: #b0a996;
+  background-color: ${props => props.theme.borderColor};
   padding: 0.6rem 0.5rem;
   cursor: pointer;
   letter-spacing: 0.15rem;
 
   &:hover {
-    color: #d7d1b9;
+    color: ${props => props.theme.invertTextColor};
     transition: background-color .1s, color .1s;
     background: linear-gradient(to bottom,
-    #4d4940 5%, transparent 5%, transparent 10%, #4d4940 10%,
-    #4d4940 90%, transparent 90%, transparent 95%, #4d4940 95%);
+      ${props => props.theme.textColor} 5%, transparent 5%, transparent 10%, ${props => props.theme.textColor} 10%,
+      ${props => props.theme.textColor} 90%, transparent 90%, transparent 95%, ${props => props.theme.textColor} 95%);
   }
-  
-  /* spacer */
-  span {
+
+  .spacer {
     flex: 1 1 auto;
   }
 `

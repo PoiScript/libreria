@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 
 import 'katex/dist/katex.min.css'
 
@@ -8,6 +8,7 @@ import { LeftTop, RightBottom } from './carve'
 import Border from '../assets/border.png'
 
 import './index.css'
+import { theme } from './theme'
 
 const Container = styled.div`
   z-index: 99;
@@ -18,11 +19,13 @@ const Container = styled.div`
 `
 
 const App = ({ children }) => (
-  <Container>
-    <LeftTop />
-    {children()}
-    <RightBottom />
-  </Container>
+  <ThemeProvider theme={theme}>
+    <Container>
+      <LeftTop />
+      {children()}
+      <RightBottom />
+    </Container>
+  </ThemeProvider>
 )
 
 App.propTypes = {

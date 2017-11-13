@@ -8,11 +8,11 @@ export default styled(Link)`
   text-decoration: none;
 
   &:hover {
-    text-shadow: 0.2rem 0.2rem 0 #bab5a1;
+    text-shadow: 0.2rem 0.2rem 0 ${props => props.theme.shadowColor};
   }
 
   &:hover {
-    border: solid #424242;
+    border: solid ${props => props.theme.linkColor};
     border-width: 0 0 2px 0;
   }
 `
