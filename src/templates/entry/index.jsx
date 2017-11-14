@@ -7,7 +7,7 @@ import CommitStatus from './commit-status'
 import Wrapper from '../../components/wrapper'
 import Header from '../../components/header'
 
-const Entry = ({ pathContext: { entry, gitInfo } }) => (
+const Entry = ({ data: { entry, gitInfo } }) => (
   <Wrapper>
     <Helmet title={entry.meta.title} />
     <Paginator>
@@ -27,3 +27,31 @@ const Entry = ({ pathContext: { entry, gitInfo } }) => (
 )
 
 export default Entry
+
+export const entryQuery = graphql`
+  query EntryQuery($fileAbsolutePath: String!) {
+    entry: markdownRemark(fileAbsolutePath: { eq: $fileAbsolutePath }) {
+      html
+      meta: frontmatter {
+        title
+        category
+      }
+      fields {
+        categorySlug
+      }
+    }
+    gitInfo (fileAbsolutePath: { eq: $fileAbsolutePath }) {
+      commitCount
+      lastCommit {
+        hash
+        date
+        message
+      }
+      firstCommit {
+        hash
+        date
+        message
+      }
+    }
+  }
+`

@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 
 import Link from './link'
@@ -8,25 +7,39 @@ import Wrapper from '../../components/wrapper'
 import Header from '../../components/header'
 import SubHeader from '../../components/subheader'
 
-const Category = ({ pathContext: { category, entries } }) => (
+const Category = ({ data: { entries }, pathContext: { name, slug } }) => (
   <Wrapper>
-    <Helmet title={category} />
-    <Header>■{category}</Header>
-    <SubHeader>- {entries.length} ITEM{entries.length === 1 || 'S'} -</SubHeader>
+    <Helmet title={name} />
+    <Header>■{name}</Header>
+    <SubHeader>- {entries.totalCount} ITEM{entries.totalCount === 1 || 'S'} -</SubHeader>
     <Container>
-      {entries.map((entry, i) => (
-        <Link key={i} to={`${entry.fields.categorySlug}/${entry.fields.slug}`}>
-          {entry.meta.title}
+      {entries.edges.map(({ node }, i) => (
+        <Link key={i} to={`${slug}/${node.fields.slug}`}>
+          {node.meta.title}
         </Link>
       ))}
     </Container>
   </Wrapper>
 )
 
-Category.propTypes = {
-  pathContext: PropTypes.shape({
-    category: PropTypes.string.isRequired
-  }).isRequired
-}
-
 export default Category
+
+export const categoryQuery = graphql`
+  query CategoryQuery($slug: String!) {
+    entries: allMarkdownRemark(
+      filter: { fields: { categorySlug: { eq: $slug } } }
+    ) {
+      totalCount
+      edges {
+        node {
+          fields {
+            slug
+          }
+          meta: frontmatter {
+            title
+          }
+        }
+      }
+    }
+  }
+`

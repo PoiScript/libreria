@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 
@@ -34,12 +33,12 @@ const Copyright = styled.div`
   margin-top: 15vh;
 `
 
-const HomeScreen = ({ pathContext: { count } }) => (
+const HomeScreen = ({ data: { entries } }) => (
   <Wrapper>
     <Helmet title='Libreria' />
     <Content>
       <Title>Libreria</Title>
-      <Description>PoiScript's wiki and it's {count} entries so far …</Description>
+      <Description>PoiScript's wiki and it's {entries.totalCount} entries so far …</Description>
       <Container>
         <Link to='/data'>DATA</Link>
       </Container>
@@ -48,10 +47,12 @@ const HomeScreen = ({ pathContext: { count } }) => (
   </Wrapper>
 )
 
-HomeScreen.propTypes = {
-  pathContext: PropTypes.shape({
-    count: PropTypes.number.isRequired
-  }).isRequired
-}
-
 export default HomeScreen
+
+export const homeScreenQuery = graphql`
+  query HomeScreenQuery {
+    entries: allMarkdownRemark {
+      totalCount
+    }
+  }
+`

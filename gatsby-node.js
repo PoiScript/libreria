@@ -33,10 +33,8 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
   return graphql(`
   {
     entries: allMarkdownRemark {
-      totalCount
       edges {
         node {
-          html
           fileAbsolutePath
           meta: frontmatter {
             category
@@ -49,27 +47,9 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
         }
       }
     }
-    allGitInfo {
-      edges {
-        node {
-          commitCount
-          fileAbsolutePath
-          lastCommit {
-            hash
-            date
-            message
-          }
-          firstCommit {
-            hash
-            date
-            message
-          }
-        }
-      }
-    }
   }
   `)
-    .then(({ data: { entries, allGitInfo }, errors }) => {
+    .then(({ data: { entries }, errors }) => {
       if (errors) {
         return Promise.reject(errors)
       }
@@ -77,26 +57,19 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       // home page
       createPage({
         path: '/',
-        component: join(templates, 'home-screen/index.jsx'),
-        context: {
-          count: entries.totalCount
-        }
+        component: join(templates, 'home-screen/index.jsx')
       })
 
       // entry page
-      entries.edges
-        .forEach(({ node }) => {
-          const gitInfo = allGitInfo.edges.map(({ node }) => node)
-            .find(info => info.fileAbsolutePath === node.fileAbsolutePath)
-          createPage({
-            path: join(node.fields.categorySlug, node.fields.slug),
-            component: join(templates, 'entry/index.jsx'),
-            context: {
-              entry: node,
-              gitInfo
-            }
-          })
+      entries.edges.forEach(({ node: { fields, fileAbsolutePath } }) => {
+        createPage({
+          path: join(fields.categorySlug, fields.slug),
+          component: join(templates, 'entry/index.jsx'),
+          context: {
+            fileAbsolutePath
+          }
         })
+      })
 
       // group entries by the category
       const categories = Object.values(entries.edges.reduce((result, { node: { meta, fields } }) => {
@@ -118,8 +91,8 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
           path: category.slug,
           component: join(templates, 'category/index.jsx'),
           context: {
-            category: category.name,
-            entries: category.entries
+            slug: category.slug,
+            name: category.name
           }
         })
       })
