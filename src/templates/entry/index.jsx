@@ -16,12 +16,12 @@ const Entry = ({ data: { entry, gitInfo } }) => (
       {entry.meta.title}
     </Paginator>
     <Header>■{entry.meta.title}</Header>
+    <p>{entry.wordCount.words}</p>
     <div dangerouslySetInnerHTML={{ __html: entry.html }} />
     <CommitStatus
       title={entry.meta.title}
-      count={gitInfo.commitCount}
-      lastCommit={gitInfo.lastCommit}
-      firstCommit={gitInfo.firstCommit}
+      words={entry.wordCount.words}
+      gitInfo={gitInfo}
     />
   </Wrapper>
 )
@@ -32,6 +32,9 @@ export const entryQuery = graphql`
   query EntryQuery($fileAbsolutePath: String!) {
     entry: markdownRemark(fileAbsolutePath: { eq: $fileAbsolutePath }) {
       html
+      wordCount {
+        words
+      }
       meta: frontmatter {
         title
         category
@@ -41,16 +44,10 @@ export const entryQuery = graphql`
       }
     }
     gitInfo (fileAbsolutePath: { eq: $fileAbsolutePath }) {
-      commitCount
-      lastCommit {
-        hash
+      total
+      latest {
         date
-        message
-      }
-      firstCommit {
         hash
-        date
-        message
       }
     }
   }

@@ -1,14 +1,7 @@
 const { resolve, parse, join } = require('path')
+const { kebabCase } = require('lodash')
 
 const templates = resolve('src/templates')
-
-const createSlug = (text) => {
-  return text.toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '')
-}
 
 exports.onCreateNode = ({ node, boundActionCreators }) => {
   const { createNodeField } = boundActionCreators
@@ -22,7 +15,7 @@ exports.onCreateNode = ({ node, boundActionCreators }) => {
     createNodeField({
       node,
       name: 'categorySlug',
-      value: createSlug(node.frontmatter.category)
+      value: kebabCase(node.frontmatter.category)
     })
   }
 }

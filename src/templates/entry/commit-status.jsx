@@ -44,31 +44,20 @@ const NoError = styled.div`
 
 const GITHUB_COMMIT_URL = 'https://github.com/PoiScript/libreria/commit/'
 
-const CommitStatus = ({ lastCommit, firstCommit, count, title }) => (
+const CommitStatus = ({ gitInfo, title, words }) => (
   <Wrapper>
     <Title>Status</Title>
     <Content>
       <Row>
-        <span>{title}</span>
-        <span>Lv: {count}</span>
+        <span>{title}</span><span>Lv: {gitInfo.count}</span>
       </Row>
       <hr />
       <Row>
-        <span>Last Commit:</span>
-        <a href={GITHUB_COMMIT_URL + lastCommit.hash}>{lastCommit.message}</a>
+        <span>Words:</span><span>{words}</span>
       </Row>
       <Row>
-        <span>Commit Date:</span>
-        <span>{lastCommit.date}</span>
-      </Row>
-      <hr />
-      <Row>
-        <span>First Commit:</span>
-        <a href={GITHUB_COMMIT_URL + firstCommit.hash}>{firstCommit.message}</a>
-      </Row>
-      <Row>
-        <span>Commit Date:</span>
-        <span>{firstCommit.date}</span>
+        <span>Last Changed:</span>
+        <a href={GITHUB_COMMIT_URL + gitInfo.latest.hash}>{gitInfo.latest.date}</a>
       </Row>
       <hr />
       <NoError>NO ERROR</NoError>
