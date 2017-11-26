@@ -12,3 +12,5 @@ Block ciphers are an example of a symmetric-key encryption scheme, also known as
 A block cipher is a keyed permutation. It's a permutation, because the block cipher maps every possible block to some other block. It's also a keyed permutation, because the key determiners exactly which blocks map to which.
 
 Knowing a bunch of (input, output) pairs of a given key shouldn't give you any information about any other (input, output) pairs under that key.
+
+However, there're still some problems of using block ciphers: for example, we can only send message of a very limited length: the block length of the block cipher. We can address this with stream cipher. Also, we still need to address the issue of agreeing on those few key bytes, potentially over an insecure channel, we will address this problem with a key exchange protocol.
