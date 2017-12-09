@@ -13,7 +13,7 @@ Steps
 AES is not feistel cipher. the number of rounds in AES depends on key length:
 
 | key length | rounds |
-|------------+--------|
+|------------|--------|
 |        128 |     10 |
 |        192 |     12 |
 |        256 |     14 |
@@ -31,7 +31,7 @@ key Schedule
 ---
 
 | key length | number of subkeys |
-|------------+-------------------|
+|------------|-------------------|
 |        128 |                11 |
 |        192 |                13 |
 |        256 |                15 |
